@@ -26,7 +26,8 @@ public class ApiKeyAuthenticationMiddleware
                 path.Contains("/openapi") ||
                 path.Contains(".js") ||
                 path.Contains(".css") ||
-                path.Contains(".png"))
+                path.Contains(".png") ||
+                (path.Contains("/api/apikeys") && context.Request.Method == "POST"))
             {
                 await _next(context);
                 return;
