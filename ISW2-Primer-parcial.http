@@ -1,0 +1,6 @@
+@ISW2_Primer_parcial_HostAddress = http://localhost:5117
+
+GET {{ISW2_Primer_parcial_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
