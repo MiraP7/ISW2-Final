@@ -1,4 +1,5 @@
 using ISW2_Primer_parcial.Models;
+using ISW2_Primer_parcial.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ISW2_Primer_parcial.Data;
@@ -6,6 +7,55 @@ namespace ISW2_Primer_parcial.Data;
 public static class DatabaseSeeder
 {
     public static async Task SeedAsync(ApplicationDbContext context)
+    {
+        // Seed Roles si no existen
+        await SeedRolesAsync(context);
+        
+        // Seed Usuario Administrador
+        await SeedAdminUserAsync(context);
+        
+        // Seed Productos
+        await SeedProductosAsync(context);
+    }
+
+    private static async Task SeedRolesAsync(ApplicationDbContext context)
+    {
+        if (!await context.Roles.AnyAsync())
+        {
+            var roles = new List<Rol>
+            {
+                new Rol { Nombre = "Administrador", Descripcion = "Acceso completo al sistema" },
+                new Rol { Nombre = "Usuario", Descripcion = "Acceso limitado, no puede eliminar productos" }
+            };
+            await context.Roles.AddRangeAsync(roles);
+            await context.SaveChangesAsync();
+        }
+    }
+
+    private static async Task SeedAdminUserAsync(ApplicationDbContext context)
+    {
+        // Crear usuario admin por defecto si no existe
+        if (!await context.Usuarios.AnyAsync(u => u.Email == "admin@isw2.com"))
+        {
+            var adminRole = await context.Roles.FirstOrDefaultAsync(r => r.Nombre == "Administrador");
+            if (adminRole != null)
+            {
+                var admin = new Usuario
+                {
+                    NombreUsuario = "admin",
+                    Email = "admin@isw2.com",
+                    PasswordHash = PasswordHelper.HashPassword("Admin123!"),
+                    NombreCompleto = "Administrador del Sistema",
+                    IdRol = adminRole.IdRol,
+                    Activo = true
+                };
+                context.Usuarios.Add(admin);
+                await context.SaveChangesAsync();
+            }
+        }
+    }
+
+    private static async Task SeedProductosAsync(ApplicationDbContext context)
     {
         var now = DateTime.UtcNow;
         var blueprint = new List<(Producto Producto, int Stock)>

@@ -1,7 +1,10 @@
 using ISW2_Primer_parcial.Data;
+using ISW2_Primer_parcial.Services;
+using ISW2_Primer_parcial.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Reflection;
 
 namespace ISW2_Primer_parcial.Middleware;
 

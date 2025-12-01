@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using ISW2_Primer_parcial.Data;
+using ISW2_Primer_parcial.Attributes;
 
 namespace ISW2_Primer_parcial.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[RequiereAutenticacion]
 public class InventarioController : ControllerBase
 {
     private readonly ApplicationDbContext _context;

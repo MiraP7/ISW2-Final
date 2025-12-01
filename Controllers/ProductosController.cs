@@ -3,12 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using ISW2_Primer_parcial.Data;
 using ISW2_Primer_parcial.Models;
+using ISW2_Primer_parcial.Attributes;
 using System.Data;
 
 namespace ISW2_Primer_parcial.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[RequiereAutenticacion]
 public class ProductosController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -177,7 +179,11 @@ public class ProductosController : ControllerBase
     }
 
     // DELETE: api/Productos/5
+    /// <summary>
+    /// Eliminar un producto (Solo Administradores)
+    /// </summary>
     [HttpDelete("{id}")]
+    [RequiereAdmin]
     public async Task<IActionResult> DeleteProducto(int id)
     {
         string? mensaje = null;

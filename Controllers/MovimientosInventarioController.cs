@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ISW2_Primer_parcial.Data;
 using ISW2_Primer_parcial.Models;
+using ISW2_Primer_parcial.Attributes;
 
 namespace ISW2_Primer_parcial.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[RequiereAutenticacion]
 public class MovimientosInventarioController : ControllerBase
 {
     private readonly ApplicationDbContext _context;

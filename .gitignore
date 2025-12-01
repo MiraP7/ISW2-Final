@@ -1,14 +1,43 @@
+# Build output
 bin/
 obj/
+out/
+
+# IDE and editors
 .vscode/
+.vs/
+.idea/
 *.user
 *.suo
 *.csproj.user
+
+# OS files
 *.DS_Store
+Thumbs.db
+
+# User secrets and sensitive data
 appsettings.Development.json
+appsettings.*.local.json
+secrets.json
 
 # Archivos subidos por usuarios
-UploadedFiles/
+UploadedFiles/*
+!UploadedFiles/.gitkeep
 
+# Logs
+*.log
+logs/
+
+# Test results
+TestResults/
+coverage/
+
+# NuGet
+*.nupkg
+packages/
+
+# Misc
 .fake
-*.md
+*.bak
+*.tmp
+*.temp
